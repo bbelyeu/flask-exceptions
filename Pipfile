@@ -1,0 +1,26 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[packages]
+
+Flask = "*"
+statsd = "*"
+
+
+[dev-packages]
+
+pycodestyle = "*"
+"flake8" = "*"
+isort = "*"
+pylint = "*"
+wheel = "*"
+pudb = "*"
+
+
+[requires]
+
+python_version = "3.6"
