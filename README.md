@@ -55,6 +55,10 @@ exception constructor.
 
     exceptions.conflict('Race condition!', payload={'error': '4-8-15-16-23-42'})  # custom error & payload
 
+Currently supported HTTP errors include 400 - bad_request(), 401 - unauthorized(), 403 -
+forbidden(), 404 - not_found(), 409 - conflict(), 410 - gone(), 415 - unsupported_media(),
+and 422 - unprocessable_entity()
+
 # Development
 
 This project was written and tested with Python 3.6.
