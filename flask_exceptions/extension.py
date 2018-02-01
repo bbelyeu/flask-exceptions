@@ -78,6 +78,12 @@ class Conflict(APIException):
         super().__init__(409, **kwargs)
 
 
+class Gone(APIException):
+    """A 410 gone when let clients know a resource previously existed but has been removed."""
+    def __init__(self, **kwargs):
+        super().__init__(410, **kwargs)
+
+
 class UnsupportedMedia(APIException):
     """A 415 indicates an invalid Accept or Content-Type header."""
     def __init__(self, **kwargs):
@@ -139,6 +145,11 @@ class AddExceptions(object):
     def conflict(self, **kwargs):
         """Return an Exception to use when you want to return a 409."""
         return Conflict(**kwargs)
+
+    @exception('Gone')
+    def gone(self, **kwargs):
+        """Return an Exception to use when you want to return a 410."""
+        return Gone(**kwargs)
 
     @exception('Unsupported Media')
     def unsupported_media(self, **kwargs):
