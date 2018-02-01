@@ -14,11 +14,14 @@ def exception(message):
         @wraps(method)
         def wrapper(self, *args, **kwargs):
             """Innermost decorator wrapper - this is confusing."""
-            kwargs['message'] = message if self.messages else None
+            if self.messages:
+                kwargs['message'] = args[0] if args else message
+            else:
+                kwargs['message'] = None
             kwargs['prefix'] = self.prefix
             kwargs['statsd'] = self.statsd
 
-            return method(self, *args, **kwargs)
+            return method(self, **kwargs)
 
         return wrapper
 

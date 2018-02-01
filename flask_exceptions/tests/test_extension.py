@@ -1,5 +1,5 @@
 """Test the statsd extension module."""
-# pylint: disable=no-member
+# pylint: disable=no-member,too-many-function-args
 import unittest
 from functools import wraps
 from unittest.mock import MagicMock
@@ -105,6 +105,16 @@ class TestExceptions(unittest.TestCase):
 
         self.assertIsInstance(bad_request, extension.BadRequest)
         self.assertDictEqual(bad_request.to_dict(), {'message': 'Invalid request parameters'})
+        self.app.statsd.incr.assert_called_once_with(extension.DEFAULT_PREFIX + '.400')
+
+    @mock_statsd
+    def test_bad_request_custom_msg(self):
+        """Test BadRequest/400 exception with a custom error message."""
+        exceptions = AddExceptions(self.app)
+        bad_request = exceptions.bad_request('Oh noes!')
+
+        self.assertIsInstance(bad_request, extension.BadRequest)
+        self.assertDictEqual(bad_request.to_dict(), {'message': 'Oh noes!'})
         self.app.statsd.incr.assert_called_once_with(extension.DEFAULT_PREFIX + '.400')
 
     @mock_statsd
