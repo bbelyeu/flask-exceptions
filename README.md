@@ -17,6 +17,19 @@ Import it and wrap app
     app = Flask(__name__)
     exceptions = AddExceptions(app)
 
+You also need to define the
+[Flask app error handler](http://flask.pocoo.org/docs/0.12/patterns/errorpages/#error-handlers)
+to catch the base exception used (APIException).
+
+    from flask import jsonify
+    from flask_exceptions import APIException
+
+    @app.errorhandler(APIException)
+    def handle_exceptions(error):
+        response = jsonify(error.to_dict())
+        response.status_code = error.status_code
+        return response
+
 You may add a statsd ([pystatsd](https://pypi.python.org/pypi/pystatsd/) interface) counter via app
 configuration with `EXCEPTION_COUNTER`.  Pass the namespaced path to the instantiated statsd
 StatsClient-like object.
@@ -33,6 +46,14 @@ setting `EXCEPTION_MESSAGE` to `False` in your Flask app config. The default is 
 
 When using one of the custom exceptions, you may pass an optional message and payload to the
 exception constructor.
+
+    from app import exceptions
+
+    exceptions.bad_request()  # returns 400 with default message (if enabled)
+
+    exceptions.not_found('Nothing to see here')  # returns a 404 with custom error message
+
+    exceptions.conflict('Race condition!', payload={'error': '4-8-15-16-23-42'})  # custom error & payload
 
 # Development
 
