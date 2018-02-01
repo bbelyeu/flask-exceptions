@@ -1,5 +1,7 @@
 """Test the statsd extension module."""
+# pylint: disable=no-member
 import unittest
+from functools import wraps
 from unittest.mock import MagicMock
 
 from flask import Flask
@@ -13,6 +15,19 @@ def create_app():
     exceptions = AddExceptions()
     exceptions.init_app(app)
     return app
+
+
+def mock_statsd(func):
+    """Decorator to mock statsd object."""
+
+    @wraps(func)
+    def wrapper(self, *args, **kwargs):
+        """Wrapper for mocking statsd."""
+        self.app.statsd = MagicMock()
+        self.app.statsd.incr = MagicMock()
+        return func(self, *args, **kwargs)
+
+    return wrapper
 
 
 class TestExceptions(unittest.TestCase):
@@ -82,11 +97,9 @@ class TestExceptions(unittest.TestCase):
     # Test ALL flows with 400/Bad Request once, then each exception shouldn't need to test
     # each edge case usage
 
+    @mock_statsd
     def test_bad_request(self):
         """Test BadRequest/400 exception."""
-        self.app.statsd = MagicMock()
-        self.app.statsd.incr = MagicMock()
-
         exceptions = AddExceptions(self.app)
         bad_request = exceptions.bad_request()
 
@@ -94,11 +107,9 @@ class TestExceptions(unittest.TestCase):
         self.assertDictEqual(bad_request.to_dict(), {'message': 'Invalid request parameters'})
         self.app.statsd.incr.assert_called_once_with(extension.DEFAULT_PREFIX + '.400')
 
+    @mock_statsd
     def test_bad_request_no_msg(self):
         """Test BadRequest/400 exception with no message."""
-        self.app.statsd = MagicMock()
-        self.app.statsd.incr = MagicMock()
-
         self.app.config['EXCEPTION_MESSAGE'] = False
         exceptions = AddExceptions(self.app)
         bad_request = exceptions.bad_request()
@@ -107,11 +118,9 @@ class TestExceptions(unittest.TestCase):
         self.assertDictEqual(bad_request.to_dict(), {})
         self.app.statsd.incr.assert_called_once_with(extension.DEFAULT_PREFIX + '.400')
 
+    @mock_statsd
     def test_bad_request_payload(self):
         """Test BadRequest/400 exception with custom payload."""
-        self.app.statsd = MagicMock()
-        self.app.statsd.incr = MagicMock()
-
         exceptions = AddExceptions(self.app)
         bad_request = exceptions.bad_request(payload={'code': '4-8-15-16-23-42'})
 
@@ -120,11 +129,9 @@ class TestExceptions(unittest.TestCase):
             'code': '4-8-15-16-23-42', 'message': 'Invalid request parameters'})
         self.app.statsd.incr.assert_called_once_with(extension.DEFAULT_PREFIX + '.400')
 
+    @mock_statsd
     def test_bad_request_no_statsd(self):
-        """Test BadRequest/400 exception with no statsd object."""
-        self.app.statsd = MagicMock()
-        self.app.statsd.incr = MagicMock()
-
+        """Test BadRequest/400 exception with no statsd object in config."""
         self.app.config['EXCEPTION_COUNTER'] = None
         exceptions = AddExceptions(self.app)
         bad_request = exceptions.bad_request()
@@ -133,11 +140,9 @@ class TestExceptions(unittest.TestCase):
         self.assertDictEqual(bad_request.to_dict(), {'message': 'Invalid request parameters'})
         self.app.statsd.incr.assert_not_called()
 
+    @mock_statsd
     def test_unauthorized(self):
         """Test Unauthorized/401 exception."""
-        self.app.statsd = MagicMock()
-        self.app.statsd.incr = MagicMock()
-
         exceptions = AddExceptions(self.app)
         unauthorized = exceptions.unauthorized()
 
@@ -145,11 +150,9 @@ class TestExceptions(unittest.TestCase):
         self.assertDictEqual(unauthorized.to_dict(), {'message': 'Unauthorized'})
         self.app.statsd.incr.assert_called_once_with(extension.DEFAULT_PREFIX + '.401')
 
+    @mock_statsd
     def test_forbidden(self):
         """Test Forbidden/403 exception."""
-        self.app.statsd = MagicMock()
-        self.app.statsd.incr = MagicMock()
-
         exceptions = AddExceptions(self.app)
         forbidden = exceptions.forbidden()
 
@@ -157,11 +160,9 @@ class TestExceptions(unittest.TestCase):
         self.assertDictEqual(forbidden.to_dict(), {'message': 'Forbidden'})
         self.app.statsd.incr.assert_called_once_with(extension.DEFAULT_PREFIX + '.403')
 
+    @mock_statsd
     def test_not_found(self):
         """Test NotFound/404 exception."""
-        self.app.statsd = MagicMock()
-        self.app.statsd.incr = MagicMock()
-
         exceptions = AddExceptions(self.app)
         not_found = exceptions.not_found()
 
@@ -169,11 +170,9 @@ class TestExceptions(unittest.TestCase):
         self.assertDictEqual(not_found.to_dict(), {'message': 'Resource not found'})
         self.app.statsd.incr.assert_called_once_with(extension.DEFAULT_PREFIX + '.404')
 
+    @mock_statsd
     def test_conflict(self):
         """Test Conflict/409 exception."""
-        self.app.statsd = MagicMock()
-        self.app.statsd.incr = MagicMock()
-
         exceptions = AddExceptions(self.app)
         conflict = exceptions.conflict()
 
@@ -181,11 +180,19 @@ class TestExceptions(unittest.TestCase):
         self.assertDictEqual(conflict.to_dict(), {'message': 'Conflict'})
         self.app.statsd.incr.assert_called_once_with(extension.DEFAULT_PREFIX + '.409')
 
+    @mock_statsd
+    def test_gone(self):
+        """Test Gone/410 exception."""
+        exceptions = AddExceptions(self.app)
+        gone = exceptions.gone()
+
+        self.assertIsInstance(gone, extension.Gone)
+        self.assertDictEqual(gone.to_dict(), {'message': 'Gone'})
+        self.app.statsd.incr.assert_called_once_with(extension.DEFAULT_PREFIX + '.410')
+
+    @mock_statsd
     def test_unsupported_media(self):
         """Test UnsupportedMedia/415 exception."""
-        self.app.statsd = MagicMock()
-        self.app.statsd.incr = MagicMock()
-
         exceptions = AddExceptions(self.app)
         unsupported_media = exceptions.unsupported_media()
 
@@ -193,11 +200,9 @@ class TestExceptions(unittest.TestCase):
         self.assertDictEqual(unsupported_media.to_dict(), {'message': 'Unsupported Media'})
         self.app.statsd.incr.assert_called_once_with(extension.DEFAULT_PREFIX + '.415')
 
+    @mock_statsd
     def test_unprocessable_entity(self):
         """Test UnprocessableEntity/422 exception."""
-        self.app.statsd = MagicMock()
-        self.app.statsd.incr = MagicMock()
-
         exceptions = AddExceptions(self.app)
         unprocessable_entity = exceptions.unprocessable_entity()
 
