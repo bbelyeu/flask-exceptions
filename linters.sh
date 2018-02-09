@@ -32,7 +32,7 @@ fi
 echo
 
 echo "> running isort..."
-isort -c
+isort -c --diff
 if [ $? != 0 ]; then
     exit 1
 else

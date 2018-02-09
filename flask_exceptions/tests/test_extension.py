@@ -6,7 +6,7 @@ from unittest.mock import MagicMock
 
 from flask import Flask
 
-from flask_exceptions import AddExceptions, extension
+from flask_exceptions import AddExceptions, extension  # isort:skip
 
 
 def create_app():
