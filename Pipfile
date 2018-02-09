@@ -13,9 +13,11 @@ statsd = "*"
 
 [dev-packages]
 
-pycodestyle = "*"
+coverage = "*"
 "flake8" = "*"
 isort = "*"
-pylint = "*"
-wheel = "*"
 pudb = "*"
+pycodestyle = "*"
+pylint = "*"
+python-coveralls = "*"
+wheel = "*"
