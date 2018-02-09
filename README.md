@@ -3,6 +3,10 @@
 [![Build Status](https://travis-ci.org/bbelyeu/flask-exceptions.svg?branch=master)](https://travis-ci.org/bbelyeu/flask-exceptions)
 [![Coverage Status](https://coveralls.io/repos/github/bbelyeu/flask-exceptions/badge.svg?branch=master)](https://coveralls.io/github/bbelyeu/flask-exceptions?branch=master)
 
+## Requirements
+
+This project requires Python 3 (tested with 3.3-3.6) and Flask 0.12
+
 ## Installation
 
 To install it, simply run
@@ -63,7 +67,7 @@ and 422 - unprocessable_entity()
 
 ## Development
 
-This project was written and tested with Python 3.6.
+This project was written and tested with Python 3. Our builds currently support Python 3.3 to 3.6.
 
 On a mac you can use the following commands to get up and running.
 ``` bash
