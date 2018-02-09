@@ -19,8 +19,3 @@ isort = "*"
 pylint = "*"
 wheel = "*"
 pudb = "*"
-
-
-[requires]
-
-python_version = "3.6"
