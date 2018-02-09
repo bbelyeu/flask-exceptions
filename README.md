@@ -1,13 +1,15 @@
-Flask-Exceptions
-================
+# Flask-Exceptions
 
-# Installation
+[![Build Status](https://travis-ci.org/bbelyeu/flask-exceptions.svg?branch=master)](https://travis-ci.org/bbelyeu/flask-exceptions)
+[![Coverage Status](https://coveralls.io/repos/github/bbelyeu/flask-exceptions/badge.svg?branch=master)](https://coveralls.io/github/bbelyeu/flask-exceptions?branch=master)
+
+## Installation
 
 To install it, simply run
 
     pip install flask-exceptions
 
-# Usage
+## Usage
 
 Import it and wrap app
 
@@ -59,7 +61,7 @@ Currently supported HTTP errors include 400 - bad_request(), 401 - unauthorized(
 forbidden(), 404 - not_found(), 409 - conflict(), 410 - gone(), 415 - unsupported_media(),
 and 422 - unprocessable_entity()
 
-# Development
+## Development
 
 This project was written and tested with Python 3.6.
 
@@ -93,13 +95,13 @@ now load virtualenv and any .env file
 pipenv shell
 ```
 
-## Running tests
+### Running tests
 
 ``` bash
 python setup.py test
 ```
 
-## Before committing any code
+### Before committing any code
 
 We have a pre-commit hook each dev needs to setup.
 You can symlink it to run before each commit by changing directory to the repo and running
