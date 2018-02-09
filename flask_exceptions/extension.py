@@ -5,6 +5,12 @@ DEFAULT_PREFIX = 'exceptions'
 DEFAULT_COUNTER = 'statsd'
 
 
+def test_isnt_tested():
+    """not tested test"""
+    test = 'i want to see if lack of cc fails a build.'
+    return test
+
+
 def exception(message):
     """Exception method convenience wrapper."""
 
