@@ -3,12 +3,12 @@ from setuptools import setup
 
 setup(
     name='Flask-Exceptions',
-    version='1.0',
-    url='https://github.com/youversion/flask-exceptions',
-    download_url='https://github.com/youversion/flask-exceptions/archive/1.0.0.zip',
+    version='1.0.1',
+    url='https://github.com/bbelyeu/flask-exceptions',
+    download_url='https://github.com/bbelyeu/flask-exceptions/archive/1.0.1.zip',
     license='MIT',
     author='Brad Belyeu',
-    author_email='developers@youversion.com',
+    author_email='bradleylamar@gmail.com',
     description='A base set of API Exceptions for Flask apps',
     long_description=__doc__,
     packages=['flask_exceptions'],
