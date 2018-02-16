@@ -108,10 +108,20 @@ class TestExceptions(unittest.TestCase):
         self.app.statsd.incr.assert_called_once_with(extension.DEFAULT_PREFIX + '.400')
 
     @mock_statsd
-    def test_bad_request_custom_msg(self):
-        """Test BadRequest/400 exception with a custom error message."""
+    def test_bad_request_custom_msg_arg(self):
+        """Test BadRequest/400 exception with a custom error message passed as an arg."""
         exceptions = AddExceptions(self.app)
         bad_request = exceptions.bad_request('Oh noes!')
+
+        self.assertIsInstance(bad_request, extension.BadRequest)
+        self.assertDictEqual(bad_request.to_dict(), {'message': 'Oh noes!'})
+        self.app.statsd.incr.assert_called_once_with(extension.DEFAULT_PREFIX + '.400')
+
+    @mock_statsd
+    def test_bad_request_custom_msg(self):
+        """Test BadRequest/400 exception with a custom error message passed as a kwarg."""
+        exceptions = AddExceptions(self.app)
+        bad_request = exceptions.bad_request(message='Oh noes!')
 
         self.assertIsInstance(bad_request, extension.BadRequest)
         self.assertDictEqual(bad_request.to_dict(), {'message': 'Oh noes!'})
