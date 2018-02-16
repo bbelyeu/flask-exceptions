@@ -59,6 +59,8 @@ exception constructor.
 
     exceptions.not_found('Nothing to see here')  # returns a 404 with custom error message
 
+    exceptions.not_found(message='Nothing to see here')  # also returns a 404 with custom error message, using the `message` kwarg
+
     exceptions.conflict('Race condition!', payload={'error': '4-8-15-16-23-42'})  # custom error & payload
 
 Currently supported HTTP errors include 400 - bad_request(), 401 - unauthorized(), 403 -

@@ -15,7 +15,7 @@ def exception(message):
         def wrapper(self, *args, **kwargs):
             """Innermost decorator wrapper - this is confusing."""
             if self.messages:
-                kwargs['message'] = args[0] if args else message
+                kwargs['message'] = args[0] if args else kwargs.get('message', message)
             else:
                 kwargs['message'] = None
             kwargs['prefix'] = self.prefix
@@ -125,41 +125,41 @@ class AddExceptions(object):
     # Exception class wrappers sorted by error code
 
     @exception('Invalid request parameters')
-    def bad_request(self, **kwargs):
+    def bad_request(self, *_, **kwargs):
         """Return an Exception to use when you want to return a 400."""
         return BadRequest(**kwargs)
 
     @exception('Unauthorized')
-    def unauthorized(self, **kwargs):
+    def unauthorized(self, *_, **kwargs):
         """Return an Exception to use when you want to return a 401."""
         return Unauthorized(**kwargs)
 
     @exception('Forbidden')
-    def forbidden(self, **kwargs):
+    def forbidden(self, *_, **kwargs):
         """Return an Exception to use when you want to return a 403."""
         return Forbidden(**kwargs)
 
     @exception('Resource not found')
-    def not_found(self, **kwargs):
+    def not_found(self, *_, **kwargs):
         """Return an Exception to use when you want to return a 404."""
         return NotFound(**kwargs)
 
     @exception('Conflict')
-    def conflict(self, **kwargs):
+    def conflict(self, *_, **kwargs):
         """Return an Exception to use when you want to return a 409."""
         return Conflict(**kwargs)
 
     @exception('Gone')
-    def gone(self, **kwargs):
+    def gone(self, *_, **kwargs):
         """Return an Exception to use when you want to return a 410."""
         return Gone(**kwargs)
 
     @exception('Unsupported Media')
-    def unsupported_media(self, **kwargs):
+    def unsupported_media(self, *_, **kwargs):
         """Return an Exception to use when you want to return a 415."""
         return UnsupportedMedia(**kwargs)
 
     @exception('Unprocessable Entity')
-    def unprocessable_entity(self, **kwargs):
+    def unprocessable_entity(self, *_, **kwargs):
         """Return an Exception to use when you want to return a 422."""
         return UnprocessableEntity(**kwargs)
