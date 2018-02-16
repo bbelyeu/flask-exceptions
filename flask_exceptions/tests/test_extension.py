@@ -1,5 +1,5 @@
 """Test the statsd extension module."""
-# pylint: disable=no-member,too-many-function-args
+# pylint: disable=no-member
 import unittest
 from functools import wraps
 from unittest.mock import MagicMock
