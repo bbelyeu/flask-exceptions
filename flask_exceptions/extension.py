@@ -2,7 +2,6 @@
 from functools import wraps
 
 DEFAULT_PREFIX = 'exceptions'
-DEFAULT_COUNTER = 'statsd'
 
 
 def exception(message):
@@ -102,15 +101,15 @@ class UnprocessableEntity(APIException):
 class AddExceptions(object):
     """Class to wrap Flask app and provide access to additional exceptions."""
 
-    def __init__(self, app=None, config=None):
+    def __init__(self, app=None, config=None, statsd=None):
         self.config = config
         if app is not None:
             self.app = app
-            self.init_app(app)
+            self.init_app(app, statsd=statsd)
         else:
             self.app = None
 
-    def init_app(self, app, config=None):
+    def init_app(self, app, config=None, statsd=None):
         """Init Flask Extension."""
         if config is not None:
             self.config = config
@@ -119,8 +118,7 @@ class AddExceptions(object):
 
         self.messages = self.config.get('EXCEPTION_MESSAGE', True)
         self.prefix = self.config.get('EXCEPTION_PREFIX', DEFAULT_PREFIX)
-        statsd = self.config.get('EXCEPTION_COUNTER', DEFAULT_COUNTER)
-        self.statsd = getattr(app, str(statsd), None)
+        self.statsd = statsd
 
     # Exception class wrappers sorted by error code
 
