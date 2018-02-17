@@ -36,10 +36,18 @@ to catch the base exception used (APIException).
         response.status_code = error.status_code
         return response
 
-You may add a statsd ([pystatsd](https://pypi.python.org/pypi/pystatsd/) interface) counter via app
-configuration with `EXCEPTION_COUNTER`.  Pass the namespaced path to the instantiated statsd
-StatsClient-like object.
-`app.statsd` is the default location the extension will look for a statsd StatsClient-like object.
+You may add a statsd ([pystatsd](https://pypi.python.org/pypi/pystatsd/) interface) counters to
+exceptions by passing a statsd kwarg to the initialization. It can be any counter compliant with
+the statsd(https://pypi.python.org/pypi/statsd) interface. You can use this extension with the
+Flask-StatsDClient(https://pypi.python.org/pypi/Flask-StatsDClient/1.0.1) simply like:
+
+    from flask import Flask
+    from flask_exceptions import AddExceptions
+    from flask_statsdclient import StatsDClient
+
+    app = Flask(__name__)
+    statsd = StatsDClient(app)
+    exceptions = AddExceptions(app, statsd)
 
 The default StatsD counter will be in the form `exceptions.xxx` with xxx being the status code.
 This does not take into account any prefix you added when instantiating StatsClient itself.
