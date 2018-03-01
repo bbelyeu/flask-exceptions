@@ -47,7 +47,7 @@ Flask-StatsDClient(https://pypi.python.org/pypi/Flask-StatsDClient/1.0.1) simply
 
     app = Flask(__name__)
     statsd = StatsDClient(app)
-    exceptions = AddExceptions(app, statsd)
+    exceptions = AddExceptions(app, statsd=statsd)
 
 The default StatsD counter will be in the form `exceptions.xxx` with xxx being the status code.
 This does not take into account any prefix you added when instantiating StatsClient itself.
