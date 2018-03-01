@@ -39,7 +39,7 @@ to catch the base exception used (APIException).
 You may add a statsd ([pystatsd](https://pypi.python.org/pypi/pystatsd/) interface) counters to
 exceptions by passing a statsd kwarg to the initialization. It can be any counter compliant with
 the statsd(https://pypi.python.org/pypi/statsd) interface. You can use this extension with the
-Flask-StatsDClient(https://pypi.python.org/pypi/Flask-StatsDClient/1.0.1) simply like:
+Flask-StatsDClient(https://pypi.python.org/pypi/Flask-StatsDClient) simply like:
 
     from flask import Flask
     from flask_exceptions import AddExceptions
@@ -50,7 +50,7 @@ Flask-StatsDClient(https://pypi.python.org/pypi/Flask-StatsDClient/1.0.1) simply
     exceptions = AddExceptions(app, statsd=statsd)
 
 The default StatsD counter will be in the form `exceptions.xxx` with xxx being the status code.
-This does not take into account any prefix you added when instantiating StatsClient itself.
+This does not take into account any prefix you added when instantiating StatsDClient itself.
 
 You may customize the prefix of the StatsD key by setting `EXCEPTION_PREFIX` in your Flask
 app config. The default prefix is simple `exceptions`.
