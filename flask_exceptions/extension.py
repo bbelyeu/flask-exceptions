@@ -31,7 +31,7 @@ class APIException(Exception):
     """Initialize the Exception with a code, message, and payload."""
 
     def __init__(self, status_code, message=None, payload=None, prefix='exceptions', statsd=None):
-        Exception.__init__(self)
+        super(APIException, self).__init__(*((message,) if message else ()))
         self.status_code = status_code
         self.message = message
         self.payload = payload
