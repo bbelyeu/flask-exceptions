@@ -3,9 +3,9 @@ from setuptools import setup
 
 setup(
     name='Flask-Exceptions',
-    version='1.2.0',
+    version='1.2.1',
     url='https://github.com/bbelyeu/flask-exceptions',
-    download_url='https://github.com/bbelyeu/flask-exceptions/archive/1.2.0.zip',
+    download_url='https://github.com/bbelyeu/flask-exceptions/archive/1.2.1.zip',
     license='MIT',
     author='Brad Belyeu',
     author_email='bradleylamar@gmail.com',
