@@ -98,7 +98,7 @@ class UnprocessableEntity(APIException):
         super().__init__(422, **kwargs)
 
 
-class AddExceptions(object):
+class AddExceptions():
     """Class to wrap Flask app and provide access to additional exceptions."""
 
     def __init__(self, app=None, config=None, statsd=None):
