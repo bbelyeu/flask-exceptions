@@ -1,0 +1,10 @@
+coverage
+detect-secrets
+flake8
+isort
+pudb
+pycodestyle
+pylint
+python-coveralls
+pyyaml>=4.2b1
+wheel
