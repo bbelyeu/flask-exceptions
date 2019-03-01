@@ -98,6 +98,18 @@ class UnprocessableEntity(APIException):
         super().__init__(422, **kwargs)
 
 
+class FailedDependency(APIException):
+    """
+    A 424 Failed Dependency Exception.
+
+    From httpstatuses.com:
+    The method could not be performed on the resource because the requested
+    action depended on another action and that action failed.
+    """
+    def __init__(self, **kwargs):
+        super().__init__(424, **kwargs)
+
+
 class AddExceptions():
     """Class to wrap Flask app and provide access to additional exceptions."""
 
@@ -161,3 +173,8 @@ class AddExceptions():
     def unprocessable_entity(self, *_, **kwargs):
         """Return an Exception to use when you want to return a 422."""
         return UnprocessableEntity(**kwargs)
+
+    @exception('Failed Dependency')
+    def failed_dependency(self, *_, **kwargs):
+        """Return an Exception to use when you want to return a 424."""
+        return FailedDependency(**kwargs)
