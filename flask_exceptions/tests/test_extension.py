@@ -187,3 +187,12 @@ class TestExceptions(unittest.TestCase):
         self.assertDictEqual(unprocessable_entity.to_dict(), {'message':
                                                               'Unprocessable Entity'})
         exceptions.statsd.incr.assert_called_once_with(extension.DEFAULT_PREFIX + '.422')
+
+    def test_failed_dependency(self):
+        """Test FailedDependency/424 exception."""
+        exceptions = AddExceptions(self.app, statsd=MagicMock())
+        failed_dependency = exceptions.failed_dependency()
+
+        self.assertIsInstance(failed_dependency, extension.FailedDependency)
+        self.assertDictEqual(failed_dependency.to_dict(), {'message': 'Failed Dependency'})
+        exceptions.statsd.incr.assert_called_once_with(extension.DEFAULT_PREFIX + '.424')
