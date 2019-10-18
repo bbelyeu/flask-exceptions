@@ -4,11 +4,10 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-
 click==7.0                # via flask
 flask==1.0.2
 itsdangerous==1.1.0       # via flask
 jinja2==2.10              # via flask
 markupsafe==1.1.0         # via jinja2
 statsd==3.3.0
-werkzeug==0.14.1          # via flask
+werkzeug==0.15.3          # via flask
