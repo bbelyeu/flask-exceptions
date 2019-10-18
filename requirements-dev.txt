@@ -4,7 +4,6 @@
 #
 #    pip-compile --output-file requirements-dev.txt requirements-dev.in
 #
-
 astroid==2.1.0            # via pylint
 certifi==2018.11.29       # via requests
 chardet==3.0.4            # via requests
@@ -24,8 +23,7 @@ python-coveralls==2.9.1
 pyyaml==4.2b4
 requests==2.21.0          # via python-coveralls
 six==1.12.0               # via astroid, python-coveralls
-typed-ast==1.2.0          # via astroid
-urllib3==1.24.1           # via requests
+urllib3==1.24.2           # via requests
 urwid==2.0.1              # via pudb
 wheel==0.32.3
 wrapt==1.11.0             # via astroid
