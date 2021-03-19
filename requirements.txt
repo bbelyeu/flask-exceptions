@@ -4,10 +4,17 @@
 #
 #    pip-compile --no-emit-trusted-host --no-index requirements.in
 #
-click==7.1.2              # via flask
-flask==1.1.2              # via -r requirements.in
-itsdangerous==1.1.0       # via flask
-jinja2==2.11.2            # via flask
-markupsafe==1.1.1         # via jinja2
-statsd==3.3.0             # via -r requirements.in
-werkzeug==1.0.1           # via flask
+click==7.1.2
+    # via flask
+flask==1.1.2
+    # via -r requirements.in
+itsdangerous==1.1.0
+    # via flask
+jinja2==2.11.3
+    # via flask
+markupsafe==1.1.1
+    # via jinja2
+statsd==3.3.0
+    # via -r requirements.in
+werkzeug==1.0.1
+    # via flask
