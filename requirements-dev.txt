@@ -4,30 +4,66 @@
 #
 #    pip-compile --no-emit-trusted-host --no-index requirements-dev.in
 #
-astroid==2.4.1            # via pylint
-certifi==2020.4.5.1       # via requests
-chardet==3.0.4            # via requests
-coverage==5.1             # via -r requirements-dev.in, python-coveralls
-detect-secrets==0.13.1    # via -r requirements-dev.in
-flake8==3.8.2             # via -r requirements-dev.in
-idna==2.9                 # via requests
-importlib-metadata==1.6.0  # via flake8
-isort==4.3.21             # via -r requirements-dev.in, pylint
-lazy-object-proxy==1.4.3  # via astroid
-mccabe==0.6.1             # via flake8, pylint
-pudb==2019.2              # via -r requirements-dev.in
-pycodestyle==2.6.0        # via -r requirements-dev.in, flake8
-pyflakes==2.2.0           # via flake8
-pygments==2.6.1           # via pudb
-pylint==2.5.2             # via -r requirements-dev.in
-python-coveralls==2.9.3   # via -r requirements-dev.in
-pyyaml==5.3.1             # via -r requirements-dev.in, detect-secrets, python-coveralls
-requests==2.23.0          # via detect-secrets, python-coveralls
-six==1.15.0               # via astroid, python-coveralls
-toml==0.10.1              # via pylint
-typed-ast==1.4.1          # via astroid
-urllib3==1.25.9           # via requests
-urwid==2.1.0              # via pudb
-wheel==0.34.2             # via -r requirements-dev.in
-wrapt==1.12.1             # via astroid
-zipp==3.1.0               # via importlib-metadata
+astroid==2.4.1
+    # via pylint
+certifi==2020.4.5.1
+    # via requests
+chardet==3.0.4
+    # via requests
+coverage==5.1
+    # via
+    #   -r requirements-dev.in
+    #   python-coveralls
+detect-secrets==0.13.1
+    # via -r requirements-dev.in
+flake8==3.8.2
+    # via -r requirements-dev.in
+idna==2.9
+    # via requests
+isort==4.3.21
+    # via
+    #   -r requirements-dev.in
+    #   pylint
+lazy-object-proxy==1.4.3
+    # via astroid
+mccabe==0.6.1
+    # via
+    #   flake8
+    #   pylint
+pudb==2019.2
+    # via -r requirements-dev.in
+pycodestyle==2.6.0
+    # via
+    #   -r requirements-dev.in
+    #   flake8
+pyflakes==2.2.0
+    # via flake8
+pygments==2.7.4
+    # via pudb
+pylint==2.5.2
+    # via -r requirements-dev.in
+python-coveralls==2.9.3
+    # via -r requirements-dev.in
+pyyaml==5.3.1
+    # via
+    #   -r requirements-dev.in
+    #   detect-secrets
+    #   python-coveralls
+requests==2.23.0
+    # via
+    #   detect-secrets
+    #   python-coveralls
+six==1.15.0
+    # via
+    #   astroid
+    #   python-coveralls
+toml==0.10.1
+    # via pylint
+urllib3==1.25.9
+    # via requests
+urwid==2.1.0
+    # via pudb
+wheel==0.34.2
+    # via -r requirements-dev.in
+wrapt==1.12.1
+    # via astroid
