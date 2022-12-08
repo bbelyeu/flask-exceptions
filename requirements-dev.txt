@@ -6,7 +6,7 @@
 #
 astroid==2.4.1
     # via pylint
-certifi==2020.4.5.1
+certifi==2022.12.7
     # via requests
 chardet==3.0.4
     # via requests
